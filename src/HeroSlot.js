@@ -1,13 +1,6 @@
 import React from 'react';
 import { HEROES, ITEMS } from './Constants';
-
-function displayName(name) {
-    return name.split('_').map(segment => segment.charAt(0).toUpperCase() + segment.substr(1)).join(' ');
-}
-
-function getHeroThumbnail(heroName) {
-    return `./images/heroes/${heroName}.png`;
-}
+import { displayName, getHeroThumbnail } from './Utils';
 
 export default class HeroSlot extends React.Component {
     constructor() {

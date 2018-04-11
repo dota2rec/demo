@@ -12,12 +12,6 @@
     font-size: 1.5em;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-
-}
-
 .container-background {
     position: fixed;
     left: 0;
@@ -30,19 +24,25 @@
     transform: scale(1.05);
 }
 
+.hero-display {
+    display: flex;
+    justify-content: center;
+}
+
 .hero-list {
     padding: 40px;
 }
 
-.hero-list-divider {
+.request-item-button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 120px;
 }
 
-.hero-list-divider img {
-    width: 100%
+.request-item-button img {
+    width: 100%;
+    cursor: pointer;
 }
 
 .hero-slot {
@@ -142,4 +142,35 @@
     height: 58px;
     font-size: 1.2em;
     line-height: 58px;
+}
+
+.hero-item-display {
+    display: flex;
+    justify-content: center;
+}
+
+.hero-item-list {
+
+}
+
+.item-recommendation {
+    margin-bottom: 10px;
+    border: 2px #222 solid;
+}
+
+.item-recommendation-hero-name {
+    font-size: 1.2em;
+}
+
+.item-recommendation-list {
+    display: flex;
+}
+
+.item-recommendation-item {
+    margin: 2px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    border: 2px #222 solid;
 }

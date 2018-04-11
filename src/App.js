@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 import HeroSlot from './HeroSlot';
+import ItemRecommendation from './ItemRecommendation';
+import request from 'request';
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
+            displayItems: false,
             teamHeroSelections: [null, null, null, null, null],
             enemyHeroSelections: [null, null, null, null, null],
+            teamItems: [],
+            enemyItems: [],
         };
     }
 
@@ -26,7 +31,7 @@ class App extends Component {
     }
 
     render() {
-        const { teamHeroSelections, enemyHeroSelections } = this.state;
+        const { displayItems, teamHeroSelections, enemyHeroSelections, teamItems, enemyItems } = this.state;
         const teamHeroSlots = [];
         const enemyHeroSlots = [];
 
@@ -49,6 +54,26 @@ class App extends Component {
             );
         }
 
+        const teamHeroItemList = [];
+        const enemyHeroItemList = [];
+        if (displayItems) {
+            for (let i = 0; i < 5; i++) {
+                teamHeroItemList.push(
+                    <ItemRecommendation
+                        key={`team-item-recommendation-${i}`}
+                        hero={teamHeroSelections[i]}
+                        itemIds={teamItems[teamHeroSelections[i].id]} />
+                );
+
+                enemyHeroItemList.push(
+                    <ItemRecommendation
+                        key={`enemy-item-recommendation-${i}`}
+                        hero={enemyHeroSelections[i]}
+                        itemIds={enemyItems[enemyHeroSelections[i].id]} />
+                );
+            }
+        }
+
         return (
             <div className="App">
                 <header className="App-header">
@@ -56,15 +81,31 @@ class App extends Component {
                 </header>
                 <div className="container">
                     <div className="container-background" style={{ backgroundImage: "url('./images/bg-small.jpg')" }}></div>
-                    <div className="hero-list">
-                        {teamHeroSlots}
-                    </div>
-                    <div className="hero-list-divider">
-                        <img src={'./images/cross.png'} />
-                    </div>
-                    <div className="hero-list">
-                        {enemyHeroSlots}
-                    </div>
+                    {displayItems ?
+                        <div className="hero-item-display">
+                            <div className="hero-item-list">
+                                {teamHeroItemList}
+                            </div>
+                            <div className="request-item-button">
+                                <img src={'./images/cross.png'} />
+                            </div>
+                            <div className="hero-item-list">
+                                {enemyHeroItemList}
+                            </div>
+                        </div>
+                        :
+                        <div className="hero-display">
+                            <div className="hero-list">
+                                {teamHeroSlots}
+                            </div>
+                            <div className="request-item-button">
+                                <img src={'./images/cross.png'} onClick={this.handleRequestItemButtonClick.bind(this)} />
+                            </div>
+                            <div className="hero-list">
+                                {enemyHeroSlots}
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         );
@@ -80,6 +121,32 @@ class App extends Component {
         });
 
         localStorage.setItem(teamKey, JSON.stringify(newHeroSelection));
+    }
+
+    handleRequestItemButtonClick() {
+        const teamHeroes = this.state.teamHeroSelections;
+        const enemyHeroes = this.state.enemyHeroSelections;
+
+        if (teamHeroes.some(h => !h) || enemyHeroes.some(h => !h)) {
+            return;
+        }
+
+        request({
+            url: 'http://localhost:5000/api/compute_items',
+            method: 'POST',
+            json: {
+                heroes: {
+                    team: teamHeroes,
+                    enemy: enemyHeroes,
+                },
+            },
+         }, (err, res, body) => {
+            this.setState({
+                displayItems: true,
+                teamItems: body.data.team,
+                enemyItems: body.data.enemy,
+            });
+        });
     }
 }
 
