@@ -6,6 +6,7 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-scripts": "1.1.4",
+    "react-tooltip": "^3.5.0",
     "request": "^2.85.0"
   },
   "scripts": {

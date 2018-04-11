@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { displayName, getHeroThumbnail, getItemThumbnail, getItemById } from './Utils';
 
 export default class ItemRecommendation extends React.Component {
@@ -16,8 +17,9 @@ export default class ItemRecommendation extends React.Component {
                     <div
                         className="item-recommendation-item"
                         key={`hero-item-${itemIdx}`}
-                        style={{backgroundImage: `url(${getItemThumbnail(item.name)})`}}>
-                        {/* <div className="item-recommendation-name">{displayName(item.name)}</div> */}
+                        style={{ backgroundImage: `url(${getItemThumbnail(item.name)})` }}
+                        data-tip={displayName(item.name)}>
+                        <ReactTooltip place="bottom" type="dark" effect="solid" />
                     </div>
                 );
             }
@@ -25,9 +27,14 @@ export default class ItemRecommendation extends React.Component {
 
         return (
             <div className="item-recommendation">
-                <div className="item-recommendation-hero-name">{displayName(hero.name)}</div>
-                <div className="item-recommendation-list">
-                    {recommendedItemViews}
+                <div
+                    className="item-recommendation-hero-image"
+                    style={{ backgroundImage: `url(${getHeroThumbnail(hero.name)})` }}></div>
+                <div>
+                    <div className="item-recommendation-hero-name">{displayName(hero.name)}</div>
+                    <div className="item-recommendation-list">
+                        {recommendedItemViews}
+                    </div>
                 </div>
             </div>
         )
