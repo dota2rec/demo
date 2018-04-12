@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import { displayName, getHeroThumbnail, getItemThumbnail, getItemById } from './Utils';
+import ItemView from './ItemView';
+// import ReactTooltip from 'react-tooltip';
+import { displayName, getHeroThumbnail, getItemById, getItemDetailByName } from './Utils';
 
 export default class ItemRecommendation extends React.Component {
     render() {
@@ -12,15 +13,13 @@ export default class ItemRecommendation extends React.Component {
             const id = itemIds[itemIdx];
             const item = getItemById(id);
 
+            item.detail = getItemDetailByName(item.name);
+
             if (item) {
                 recommendedItemViews.push(
-                    <div
-                        className="item-recommendation-item"
+                    <ItemView
                         key={`hero-item-${itemIdx}`}
-                        style={{ backgroundImage: `url(${getItemThumbnail(item.name)})` }}
-                        data-tip={displayName(item.name)}>
-                        <ReactTooltip place="bottom" type="dark" effect="solid" />
-                    </div>
+                        item={item} />
                 );
             }
         }

@@ -1,4 +1,4 @@
-import { HEROES, ITEMS } from './Constants';
+import { HEROES, ITEMS, ITEM_DESC } from './Constants';
 
 const itemIdLookup = {};
 for (const item of ITEMS) {
@@ -19,4 +19,8 @@ export function getItemThumbnail(itemName) {
 
 export function getItemById(itemId) {
     return itemIdLookup[itemId];
+}
+
+export function getItemDetailByName(itemName) {
+    return ITEM_DESC[itemName];
 }
