@@ -87,7 +87,7 @@ class App extends Component {
                                 {teamHeroItemList}
                             </div>
                             <div className="request-item-button">
-                                <img src={'./images/cross.png'} />
+                                <img src={'./images/cross.png'} onClick={this.handleBackButtonClick.bind(this)} />
                             </div>
                             <div className="hero-item-list">
                                 {enemyHeroItemList}
@@ -121,6 +121,14 @@ class App extends Component {
         });
 
         localStorage.setItem(teamKey, JSON.stringify(newHeroSelection));
+    }
+
+    handleBackButtonClick() {
+        this.setState({
+            displayItems: false,
+            teamItems: [],
+            enemyItems: [],
+        });
     }
 
     handleRequestItemButtonClick() {

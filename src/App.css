@@ -197,10 +197,10 @@
 
 .item-tooltip {
     position: relative;
-    top: 50px;
+    top: 48px;
     left: -140px;
     background: black;
-    color: white;
+    color: #ddd;
     width: 300px;
     padding: 10px;
     text-align: left;
@@ -259,6 +259,7 @@
 .item-tooltip-lore {
     margin-top: 10px;
     font-size: 11px;
+    color: #999;
 }
 
 .item-tooltip-cd-mc {
