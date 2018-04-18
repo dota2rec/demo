@@ -12,6 +12,7 @@ export default class ItemView extends React.Component {
     render() {
         const { item } = this.props;
         const { showTooltip } = this.state;
+        console.log(item)
 
         return (
             <div
@@ -19,7 +20,7 @@ export default class ItemView extends React.Component {
                 style={{ backgroundImage: `url(${getItemThumbnail(item.name)})` }}
                 onMouseOver={this.handleMouseOver.bind(this)}
                 onMouseLeave={this.handleMouseOut.bind(this)}>
-                {showTooltip ? (
+                {showTooltip && item.detail ? (
                     <div className="item-tooltip">
                         <div className="item-tooltip-info item-tooltip-name">{displayName(item.name)}</div>
                         {item.detail.cost ? <div className="item-tooltip-info item-tooltip-cost"><img src="./images/gold.png" />{item.detail.cost}</div> : null}
