@@ -13,6 +13,11 @@ export default class ItemRecommendation extends React.Component {
             const id = itemIds[itemIdx];
             const item = getItemById(id);
 
+            if (!item) {
+                console.log('item not found', id);
+                continue;
+            }
+
             item.detail = getItemDetailByName(item.name);
 
             if (item) {
