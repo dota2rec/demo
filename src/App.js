@@ -140,7 +140,7 @@ class App extends Component {
         }
 
         request({
-            url: 'http://localhost:5000/api/compute_items',
+            url: `${window.location.protocol}//${window.location.hostname}:5000/api/compute_items`,
             method: 'POST',
             json: {
                 heroes: {
