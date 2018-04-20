@@ -58,6 +58,7 @@ class App extends Component {
         const enemyHeroItemList = [];
         if (displayItems) {
             for (let i = 0; i < 5; i++) {
+                console.log(teamItems[teamHeroSelections[i].id])
                 teamHeroItemList.push(
                     <ItemRecommendation
                         key={`team-item-recommendation-${i}`}

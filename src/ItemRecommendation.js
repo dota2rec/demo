@@ -10,11 +10,11 @@ export default class ItemRecommendation extends React.Component {
         const recommendedItemViews = [];
 
         for (const itemIdx in itemIds) {
-            const id = itemIds[itemIdx];
-            const item = getItemById(id);
+            const idPair = itemIds[itemIdx];
+            const item = getItemById(idPair.id);
 
             if (!item) {
-                console.log('item not found', id);
+                console.log('item not found', idPair.id);
                 continue;
             }
 
@@ -24,7 +24,8 @@ export default class ItemRecommendation extends React.Component {
                 recommendedItemViews.push(
                     <ItemView
                         key={`hero-item-${itemIdx}`}
-                        item={item} />
+                        item={item}
+                        itemNewId={idPair.new_id} />
                 );
             }
         }
