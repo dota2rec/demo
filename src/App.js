@@ -8,6 +8,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
+            activeModelName: '',
+            availableModels: [],
             displayItems: false,
             teamHeroSelections: [null, null, null, null, null],
             enemyHeroSelections: [null, null, null, null, null],
@@ -28,10 +30,23 @@ class App extends Component {
         }
 
         this.setState(selectionState);
+
+        request({
+            url: `${window.location.protocol}//${window.location.hostname}:5000/api/get_models`,
+            method: 'GET',
+            json: {},
+         }, (err, res, body) => {
+            if (body.status === 'ok') {
+                this.setState({
+                    activeModelName: body.data.active,
+                    availableModels: body.data.models,
+                });
+            }
+        });
     }
 
     render() {
-        const { displayItems, teamHeroSelections, enemyHeroSelections, teamItems, enemyItems } = this.state;
+        const { activeModelName, availableModels, displayItems, teamHeroSelections, enemyHeroSelections, teamItems, enemyItems } = this.state;
         const teamHeroSlots = [];
         const enemyHeroSlots = [];
 
@@ -58,7 +73,6 @@ class App extends Component {
         const enemyHeroItemList = [];
         if (displayItems) {
             for (let i = 0; i < 5; i++) {
-                console.log(teamItems[teamHeroSelections[i].id])
                 teamHeroItemList.push(
                     <ItemRecommendation
                         key={`team-item-recommendation-${i}`}
@@ -80,6 +94,17 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">D2Rec - Dota Item Recommendation System</h1>
                 </header>
+                <div className="model-selection-container">
+                    <div className="model-selection-title">Model selection</div>
+                    {availableModels.map((modelName, modelIdx) => (
+                        <div
+                            key={`model-selection-${modelIdx}`}
+                            className={`model-selection-item ${activeModelName === modelName ? 'active' : ''}`}
+                            onClick={() => this.handleModelSelection(modelName)}>
+                            {modelName}
+                        </div>
+                    ))}
+                </div>
                 <div className="container">
                     <div className="container-background" style={{ backgroundImage: "url('./images/bg-small.jpg')" }}></div>
                     {displayItems ?
@@ -110,6 +135,20 @@ class App extends Component {
                 </div>
             </div>
         );
+    }
+
+    handleModelSelection(modelName) {
+        request({
+            url: `${window.location.protocol}//${window.location.hostname}:5000/api/change_model`,
+            method: 'POST',
+            json: { modelName },
+         }, (err, res, body) => {
+            if (body.status === 'ok') {
+                this.setState({
+                    activeModelName: modelName,
+                });
+            }
+        });
     }
 
     handleHeroSelected(team, index, selectedHero) {

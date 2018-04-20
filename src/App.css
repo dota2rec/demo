@@ -275,3 +275,29 @@
     align-items: center;
     margin-right: 10px;
 }
+
+.model-selection-container {
+    position: absolute;
+    background: black;
+    color: white;
+    opacity: 0.6;
+}
+
+.model-selection-title {
+    font-size: 18px;
+    padding: 20px;
+}
+
+.model-selection-item {
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.model-selection-item:hover {
+    background: #333;
+}
+
+.model-selection-item.active {
+    background: #666;
+}
