@@ -161,6 +161,7 @@
 }
 
 .item-recommendation-hero-image {
+    flex-shrink: 0;
     width: 90px;
     height: 90px;
     background-size: cover;
@@ -182,6 +183,7 @@
 
 .item-recommendation-list {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .item-recommendation-item {
