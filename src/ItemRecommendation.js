@@ -5,29 +5,43 @@ import { displayName, getHeroThumbnail, getItemById, getItemDetailByName } from 
 
 export default class ItemRecommendation extends React.Component {
     render() {
-        const { hero, itemIds } = this.props;
+        const { hero, items } = this.props;
 
-        const recommendedItemViews = [];
+        const recommendationCategories = [];
 
-        for (const itemIdx in itemIds) {
-            const idPair = itemIds[itemIdx];
-            const item = getItemById(idPair.id);
+        for (const recType of Object.keys(items)) {
+            const itemIds = items[recType];
+            const recommendedItemViews = [];
 
-            if (!item) {
-                console.log('item not found', idPair.id);
-                continue;
+            for (const itemIdx in itemIds) {
+                const idPair = itemIds[itemIdx];
+                const item = getItemById(idPair.id);
+
+                if (!item) {
+                    console.log('item not found', idPair.id);
+                    continue;
+                }
+
+                item.detail = getItemDetailByName(item.name);
+
+                if (item) {
+                    recommendedItemViews.push(
+                        <ItemView
+                            key={`hero-item-${itemIdx}`}
+                            item={item}
+                            itemNewId={idPair.new_id} />
+                    );
+                }
             }
 
-            item.detail = getItemDetailByName(item.name);
-
-            if (item) {
-                recommendedItemViews.push(
-                    <ItemView
-                        key={`hero-item-${itemIdx}`}
-                        item={item}
-                        itemNewId={idPair.new_id} />
-                );
-            }
+            recommendationCategories.push(
+                <div key={`rec-category-${recType}`} className="item-recommendation-category">
+                    <div>{recType}</div>
+                    <div className="item-recommendation-list">
+                        {recommendedItemViews}
+                    </div>
+                </div>
+            );
         }
 
         return (
@@ -37,8 +51,8 @@ export default class ItemRecommendation extends React.Component {
                     style={{ backgroundImage: `url(${getHeroThumbnail(hero.name)})` }}></div>
                 <div>
                     <div className="item-recommendation-hero-name">{displayName(hero.name)}</div>
-                    <div className="item-recommendation-list">
-                        {recommendedItemViews}
+                    <div className="item-recommendation-container">
+                        {recommendationCategories}
                     </div>
                 </div>
             </div>

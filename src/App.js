@@ -77,14 +77,14 @@ class App extends Component {
                     <ItemRecommendation
                         key={`team-item-recommendation-${i}`}
                         hero={teamHeroSelections[i]}
-                        itemIds={teamItems[teamHeroSelections[i].id]} />
+                        items={teamItems[teamHeroSelections[i].id]} />
                 );
 
                 enemyHeroItemList.push(
                     <ItemRecommendation
                         key={`enemy-item-recommendation-${i}`}
                         hero={enemyHeroSelections[i]}
-                        itemIds={enemyItems[enemyHeroSelections[i].id]} />
+                        items={enemyItems[enemyHeroSelections[i].id]} />
                 );
             }
         }
