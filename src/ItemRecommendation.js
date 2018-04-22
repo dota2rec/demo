@@ -3,6 +3,10 @@ import ItemView from './ItemView';
 // import ReactTooltip from 'react-tooltip';
 import { displayName, getHeroThumbnail, getItemById, getItemDetailByName } from './Utils';
 
+function capitalizeFirstLetter(text) {
+    return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase();
+}
+
 export default class ItemRecommendation extends React.Component {
     render() {
         const { hero, items } = this.props;
@@ -13,7 +17,7 @@ export default class ItemRecommendation extends React.Component {
             const itemIds = items[recType];
             const recommendedItemViews = [];
 
-            for (const itemIdx in itemIds.slice(0, 8)) {
+            for (const itemIdx in itemIds) {
                 const idPair = itemIds[itemIdx];
                 const item = getItemById(idPair.id);
 
@@ -36,7 +40,7 @@ export default class ItemRecommendation extends React.Component {
 
             recommendationCategories.push(
                 <div key={`rec-category-${recType}`} className="item-recommendation-category">
-                    <div className="item-recommendation-type">{recType}</div>
+                    <div className="item-recommendation-type">{capitalizeFirstLetter(recType)}</div>
                     <div className="item-recommendation-list">
                         {recommendedItemViews}
                     </div>

@@ -197,6 +197,7 @@
 
 .item-recommendation-list {
     display: flex;
+    flex-wrap: wrap;
     margin-left: 10px;
 }
 
