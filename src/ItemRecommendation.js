@@ -7,7 +7,7 @@ function capitalizeFirstLetter(text) {
     return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase();
 }
 
-const CATEGORY_ORDER = ['Basic', 'Early', 'Mid', 'Intermediate', 'Final', 'Assist'];
+const CATEGORY_ORDER = ['Basic', 'Early', 'Mid', 'Intermediate', 'Final', 'Assist', 'Assistance'];
 
 export default class ItemRecommendation extends React.Component {
     render() {
