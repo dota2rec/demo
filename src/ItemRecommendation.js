@@ -7,45 +7,53 @@ function capitalizeFirstLetter(text) {
     return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase();
 }
 
+const CATEGORY_ORDER = ['Basic', 'Early', 'Mid', 'Intermediate', 'Final', 'Assist'];
+
 export default class ItemRecommendation extends React.Component {
     render() {
         const { hero, items } = this.props;
 
         const recommendationCategories = [];
 
-        for (const recType of Object.keys(items)) {
-            const itemIds = items[recType];
-            const recommendedItemViews = [];
+        for (const recTypeInOrder of CATEGORY_ORDER) {
+            for (const recType of Object.keys(items)) {
+                const recTypeName = capitalizeFirstLetter(recType);
 
-            for (const itemIdx in itemIds) {
-                const idPair = itemIds[itemIdx];
-                const item = getItemById(idPair.id);
+                if (recTypeInOrder === recTypeName) {
+                    const itemIds = items[recType];
+                    const recommendedItemViews = [];
 
-                if (!item) {
-                    console.log('item not found', idPair.id);
-                    continue;
-                }
+                    for (const itemIdx in itemIds) {
+                        const idPair = itemIds[itemIdx];
+                        const item = getItemById(idPair.id);
 
-                item.detail = getItemDetailByName(item.name);
+                        if (!item) {
+                            console.log('item not found', idPair.id);
+                            continue;
+                        }
 
-                if (item) {
-                    recommendedItemViews.push(
-                        <ItemView
-                            key={`hero-item-${itemIdx}`}
-                            item={item}
-                            itemNewId={idPair.new_id} />
+                        item.detail = getItemDetailByName(item.name);
+
+                        if (item) {
+                            recommendedItemViews.push(
+                                <ItemView
+                                    key={`hero-item-${itemIdx}`}
+                                    item={item}
+                                    itemNewId={idPair.new_id} />
+                            );
+                        }
+                    }
+
+                    recommendationCategories.push(
+                        <div key={`rec-category-${recType}`} className="item-recommendation-category">
+                            <div className="item-recommendation-type">{recTypeName}</div>
+                            <div className="item-recommendation-list">
+                                {recommendedItemViews}
+                            </div>
+                        </div>
                     );
                 }
             }
-
-            recommendationCategories.push(
-                <div key={`rec-category-${recType}`} className="item-recommendation-category">
-                    <div className="item-recommendation-type">{capitalizeFirstLetter(recType)}</div>
-                    <div className="item-recommendation-list">
-                        {recommendedItemViews}
-                    </div>
-                </div>
-            );
         }
 
         return (
