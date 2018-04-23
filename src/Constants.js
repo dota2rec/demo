@@ -1432,7 +1432,7 @@ export const ITEMS = [
     },
     {
         "id": 225,
-        "name": "nullifier_lg"
+        "name": "nullifier"
     },
     {
         "id": 226,
@@ -1464,7 +1464,7 @@ export const ITEMS = [
     },
     {
         "id": 259,
-        "name": "kaya_lg"
+        "name": "kaya"
     },
     {
         "id": 1000,
