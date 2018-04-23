@@ -22,7 +22,7 @@ export default class ItemView extends React.Component {
                 {showTooltip && item.detail ? (
                     <div className="item-tooltip">
                         {/* TODO: this is for debugging only */}
-                        <h1 style={{ color: 'red' }}>ID: {item.id} and new ID: {itemNewId}</h1>
+                        {/* <h1 style={{ color: 'red' }}>ID: {item.id} and new ID: {itemNewId}</h1> */}
 
                         <div className="item-tooltip-info item-tooltip-name">{displayName(item.name)}</div>
                         {item.detail.cost ? <div className="item-tooltip-info item-tooltip-cost"><img src="./images/gold.png" />{item.detail.cost}</div> : null}
