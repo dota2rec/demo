@@ -1431,6 +1431,10 @@ export const ITEMS = [
         "name": "travel_boots_2"
     },
     {
+        "id": 225,
+        "name": "nullifier_lg"
+    },
+    {
         "id": 226,
         "name": "lotus_orb"
     },
@@ -1457,6 +1461,10 @@ export const ITEMS = [
     {
         "id": 254,
         "name": "glimmer_cape"
+    },
+    {
+        "id": 259,
+        "name": "kaya_lg"
     },
     {
         "id": 1000,
